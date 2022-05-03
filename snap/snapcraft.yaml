@@ -37,5 +37,5 @@ parts:
     plugin: dump
     source: http://casali.canil.ca/CardSorter/CardSorter.zip
     after:
-      - nwjs-support
+      - nwjs
       - desktop-gtk3
