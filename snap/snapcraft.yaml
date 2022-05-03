@@ -38,4 +38,4 @@ parts:
     source: http://casali.canil.ca/CardSorter/CardSorter.zip
     after:
       - nwjs
-      - desktop-gtk3
+      - metadata
