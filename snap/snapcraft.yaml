@@ -54,5 +54,5 @@ parts:
     build-snaps: [gnome-3-38-2004]
     override-prime: |
       for snap in "gnome-3-38-2004"; do
-        cd "/snap/${snap}/current" && find . -type f,l -exec rm -f "${SNAPCRAFT_PRIME}/{} \;"
+        cd "/snap/${snap}/current" && find . -type f,l -exec rm -f "${SNAPCRAFT_PRIME}/{}" \;
       done
