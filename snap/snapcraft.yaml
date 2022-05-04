@@ -10,6 +10,9 @@ confinement: devmode # use 'strict' once you have the right plugs and slots
 architectures:
   - amd64
 
+license: GPL-3.0+
+contact: https://github.com/n8marti/cardsorter-snap
+
 apps:
   cardsorter:
     extensions: [gnome-3-38]
