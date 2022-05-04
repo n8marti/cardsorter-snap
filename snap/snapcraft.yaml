@@ -36,7 +36,7 @@ parts:
     override-prime: |
       snapcraftctl prime
       # Fix "nw" file permissions to be world-readable/executable.
-      chmod 755 ${SNAP}/nw
+      chmod 755 ${SNAPCRAFT_PRIME}/nw
   site:
     plugin: dump
     source: http://casali.canil.ca/CardSorter/CardSorter.zip
