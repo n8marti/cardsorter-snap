@@ -12,8 +12,8 @@ architectures:
 
 apps:
   cardsorter:
-    # extensions: [gnome-3-28]
-    command: desktop-launch $SNAP/nw
+    extensions: [gnome-3-38]
+    command: nw
     plugs:
       - audio-playback
       - desktop
