@@ -43,3 +43,13 @@ parts:
     after:
       - nwjs
       - metadata
+  cleanup:
+    # Inspired by:
+    #   https://github.com/ankurk91/google-chat-electron/blob/main/snap/local/snapcraft.template.yaml
+    after: [site]
+    plugin: nil
+    build-snaps: [gnome-3-38-2004]
+    override-prime: |
+      for snap in "gnome-3-38-2004"; do
+        cd "/snap/${snap}/current" && find . -type f,l -exec rm -f "${SNAPCRAFT_PRIME}/{} \;"
+      done
