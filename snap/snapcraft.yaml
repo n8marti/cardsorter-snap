@@ -1,5 +1,5 @@
 name: cardsorter
-base: core20
+base: bare
 version: '20210306'
 summary: Sort word list cards virtually.
 description: |
@@ -8,50 +8,16 @@ description: |
 grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 architectures:
-  - amd64
+  - all
 
 license: GPL-3.0+
 contact: https://github.com/n8marti/cardsorter-snap
 
 apps:
   cardsorter:
-    extensions: [gnome-3-38]
-    command: nw
-    plugs:
-      - audio-playback
-      - desktop
-      - home
-      - network
-      - network-bind
-      - opengl
-      # - process-control
-      # - system-observe
-      # - system-trace
-      - udisks2
+    command: xdg-open ${SNAP}/index.html
 
 parts:
-  metadata:
-    plugin: dump
-    source: metadata/
-  nwjs:
-    plugin: dump
-    source: https://dl.nwjs.io/v0.64.0/nwjs-v0.64.0-linux-x64.tar.gz
   site:
     plugin: dump
     source: http://casali.canil.ca/CardSorter/CardSorter.zip
-    after:
-      - nwjs
-      - metadata
-  cleanup:
-    # Inspired by:
-    #   https://github.com/ankurk91/google-chat-electron/blob/main/snap/local/snapcraft.template.yaml
-    after:
-      - site
-    plugin: nil
-    build-snaps: [gnome-3-38-2004]
-    override-prime: |
-      for snap in "gnome-3-38-2004"; do
-        cd "/snap/${snap}/current" && find . -type f,l -exec rm -f "${SNAPCRAFT_PRIME}/{}" \;
-      done
-      # Fix all file permissions to be world-readable/executable.
-      chmod 755 ${SNAPCRAFT_PRIME}/*
