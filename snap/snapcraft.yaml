@@ -15,14 +15,9 @@ contact: https://github.com/n8marti/cardsorter-snap
 
 apps:
   cardsorter:
-    command: usr/bin/xdg-open $SNAP/index.html
+    command: xdg-open $SNAP/index.html
 
 parts:
   site:
     plugin: dump
     source: http://casali.canil.ca/CardSorter/CardSorter.zip
-
-  xdg-open:
-    plugin: nil
-    stage-packages:
-      - xdg-utils
