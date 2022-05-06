@@ -15,7 +15,7 @@ contact: https://github.com/n8marti/cardsorter-snap
 
 apps:
   cardsorter:
-    command: usr/bin/xdg-open ${SNAP}/index.html
+    command: usr/bin/xdg-open $SNAP/index.html
 
 parts:
   site:
