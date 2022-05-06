@@ -19,6 +19,8 @@ apps:
     extensions:
       - gnome-3-38
     plugs:
+      - desktop
+      - desktop-legacy
       - home
       - removable-media
 
