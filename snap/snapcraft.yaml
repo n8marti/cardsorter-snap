@@ -15,7 +15,7 @@ contact: https://github.com/n8marti/cardsorter-snap
 
 apps:
   cardsorter:
-    command: xdg-open $SNAP/index.html
+    command: run_app.sh $SNAP/index.html
     extensions:
       - gnome-3-38
     plugs:
