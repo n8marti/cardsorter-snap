@@ -32,5 +32,5 @@ parts:
     source: http://casali.canil.ca/CardSorter/CardSorter.zip
   launcher:
     plugin: dump
-    source: ./run_app.sh
-    source-type: local
+    source: .
+    # source-type: local
