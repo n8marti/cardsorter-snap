@@ -16,6 +16,8 @@ contact: https://github.com/n8marti/cardsorter-snap
 apps:
   cardsorter:
     command: run_app.sh $SNAP/index.html
+    # command-chain:
+    #   - run_app.sh
     extensions:
       - gnome-3-38
     plugs:
@@ -28,3 +30,6 @@ parts:
   site:
     plugin: dump
     source: http://casali.canil.ca/CardSorter/CardSorter.zip
+  launcher:
+    plugin: dump
+    source: ./run_app.sh
