@@ -5,8 +5,8 @@ summary: Sort word list cards virtually.
 description: |
   Sort word list cards virtually.
 
-grade: devel # must be 'stable' to release into candidate/stable channels
-confinement: devmode # use 'strict' once you have the right plugs and slots
+grade: devmode # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
 architectures:
   - amd64
 
@@ -15,22 +15,27 @@ contact: https://github.com/n8marti/cardsorter-snap
 
 apps:
   cardsorter:
-    command: run_app.sh $SNAP/index.html
+    # command needs to exist in the snap; hence wrapper for xdg-open
+    command: bin/run_app.sh $SNAP/cardsorter/index.html
     # command-chain:
     #   - run_app.sh
-    extensions:
-      - gnome-3-38
+    # extensions:
+      # - gnome-3-38
     plugs:
       - desktop
       - desktop-legacy
-      - home
-      - removable-media
+      # - home
+      # - removable-media
 
 parts:
   site:
     plugin: dump
     source: http://casali.canil.ca/CardSorter/CardSorter.zip
+    organize:
+      "*": cardsorter/
   launcher:
     plugin: dump
+    # source has to be a directory, whether compressed or not
     source: .
-    # source-type: local
+    organize:
+      run_app.sh: bin/
