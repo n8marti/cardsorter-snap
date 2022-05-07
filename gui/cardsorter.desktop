@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Cardsorter
+Comment=Sort word list cards virtually
+Exec=run_app.sh
+Icon=window-duplicate
+Terminal=false
+Type=Application
+Categories=Education;

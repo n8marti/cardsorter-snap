@@ -1,11 +1,12 @@
 name: cardsorter
 base: core20
-version: '20210306'
+# version: '20210306'
+# grade: stable # must be 'stable' to release into candidate/stable channels
+adopt-info: site
 summary: Sort word list cards virtually.
 description: |
   Sort word list cards virtually.
 
-grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict # use 'strict' once you have the right plugs and slots
 architectures:
   - build-on:
@@ -19,7 +20,8 @@ contact: https://github.com/n8marti/cardsorter-snap
 apps:
   cardsorter:
     # command needs to exist in the snap; hence wrapper for xdg-open
-    command: bin/run_app.sh $SNAP/cardsorter/index.html
+    command: bin/run_app.sh
+    desktop: gui/cardsorter.desktop
     plugs:
       - desktop
       - desktop-legacy
@@ -28,11 +30,15 @@ parts:
   site:
     plugin: dump
     source: http://casali.canil.ca/CardSorter/CardSorter.zip
+    override-pull: |
+      snapcraftctl pull
+      index=$(find $SNAPCRAFT_PART_SRC -name index.html)
+      ver=$(find $SNAPCRAFT_PART_SRC -name index.html -exec stat --format=%y {} \; | awk '{print $1}')
+      snapcraftctl set-version "$ver"
+      snapcraftctl set-grade "stable"
     organize:
       "*": cardsorter/
   launcher:
     plugin: dump
     # source has to be a directory, whether compressed or not
     source: .
-    organize:
-      run_app.sh: bin/
