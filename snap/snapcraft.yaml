@@ -33,3 +33,4 @@ parts:
   launcher:
     plugin: dump
     source: ./run_app.sh
+    source-type: local
