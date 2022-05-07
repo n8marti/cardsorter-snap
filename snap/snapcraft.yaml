@@ -1,5 +1,5 @@
 name: cardsorter
-base: bare
+base: core20
 version: '20210306'
 summary: Sort word list cards virtually.
 description: |
