@@ -53,6 +53,8 @@ parts:
   installer:
     plugin: dump
     source: installer/
+    build-packages:
+      - zip
     override-pull: |
       snapcraftctl pull
       unzip ${SNAPCRAFT_PART_SRC}/CardSorterWPF*.zip -d "${SNAPCRAFT_PART_BUILD}"
