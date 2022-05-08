@@ -60,7 +60,7 @@ parts:
       version=$(echo "$installer_zipname" | grep -Eo '[0-9]{8}')
       snapcraftctl set-version "$version"
       snapcraftctl set-grade "devel"
-      unzip ${SNAPCRAFT_PART_BUILD}/CardSorterWPF*.zip -d ${SNAPCRAFT_PART_BUILD}/installer
+      unzip ${SNAPCRAFT_PART_BUILD}/CardSorterWPF*.zip -d ${SNAPCRAFT_PART_INSTALL}/installer
       # snapcraftctl build
     stage:
       - installer/
