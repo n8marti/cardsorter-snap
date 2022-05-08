@@ -56,7 +56,7 @@ parts:
     override-pull: |
       snapcraftctl pull
       installer_dirname=$(find $SNAPCRAFT_PART_SRC -maxdepth 1 -name 'CardSorterWPF*' -type d -exec basename {} \;)
-      version=$(echo "installer_dirname" | sed 's|CardSorterWPF||')
+      version=$(echo "$installer_dirname" | sed 's|CardSorterWPF||')
       snapcraftctl set-version "$version"
       snapcraftctl set-grade "devel"
     # stage:
