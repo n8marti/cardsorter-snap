@@ -23,7 +23,7 @@ apps:
     extensions:
       - gnome-3-28
     environment:
-      INSTALL_EXE: "${SNAP}/installer/CardSorterWPF${SNAP_VERSION}/setup.exe"
+      INSTALL_EXE: "${SNAP}/installer/setup.exe"
       RUN_EXE: "C:/users/${USER}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/CardSorterWPF/CardSorterWPF.appref-ms"
     command: bin/sommelier run-exe
     #desktop: gui/cardsorter.desktop
