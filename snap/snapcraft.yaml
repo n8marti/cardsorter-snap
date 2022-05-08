@@ -53,16 +53,18 @@ parts:
   installer:
     plugin: dump
     source: installer/
-    build-packages:
-      - zip
     override-pull: |
       snapcraftctl pull
-      unzip ${SNAPCRAFT_PART_SRC}/CardSorterWPF*.zip -d "${SNAPCRAFT_PART_BUILD}"
-    override-build: |
-      installer_dirname=$(find $SNAPCRAFT_PART_BUILD -maxdepth 1 -name 'CardSorterWPF*' -type d -exec basename {} \;)
+      gunzip ${SNAPCRAFT_PART_SRC}/CardSorterWPF*.zip
+      installer_dirname=$(find $SNAPCRAFT_PART_SRC -maxdepth 1 -name 'CardSorterWPF*' -type d -exec basename {} \;)
       version=$(echo "$installer_dirname" | sed 's|CardSorterWPF||')
       snapcraftctl set-version "$version"
       snapcraftctl set-grade "devel"
+    # override-build: |
+    #   installer_dirname=$(find $SNAPCRAFT_PART_BUILD -maxdepth 1 -name 'CardSorterWPF*' -type d -exec basename {} \;)
+    #   version=$(echo "$installer_dirname" | sed 's|CardSorterWPF||')
+    #   snapcraftctl set-version "$version"
+    #   snapcraftctl set-grade "devel"
     # stage:
     #   - -CardSorterWPF*.zip
 
