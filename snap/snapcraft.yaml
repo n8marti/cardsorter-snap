@@ -1,44 +1,76 @@
 name: cardsorter
-base: core20
+base: core18
 # version: '20210306'
 # grade: stable # must be 'stable' to release into candidate/stable channels
-adopt-info: site
+adopt-info: installer
 summary: Sort word list cards virtually.
 description: |
   Sort word list cards virtually.
 
 confinement: strict # use 'strict' once you have the right plugs and slots
 architectures:
-  - build-on:
-      - amd64
-    run-on:
-      - all
+  - amd64
 
 license: GPL-3.0+
 contact: https://github.com/n8marti/cardsorter-snap
 
+environment:
+  TRICKS: "dotnet462" # corefonts ddr=gdi fontsmooth=rgb
+  WINEDLLOVERRIDES: "mscoree,mshtml=" # Prevent pop-ups about Wine Mono and Wine Gecko
+
 apps:
   cardsorter:
-    # command needs to exist in the snap; hence wrapper for xdg-open
-    command: bin/run_app.sh
-    desktop: gui/cardsorter.desktop
-    plugs:
-      - desktop
-      - desktop-legacy
+    extensions:
+      - gnome-3-28
+    environment:
+      INSTALL_EXE: "${SNAP}/installer/CardSorterWPF${SNAP_VERSION}/setup.exe"
+      RUN_EXE: "C:/users/${USER}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/CardSorterWPF/CardSorterWPF.appref-ms"
+    command: bin/sommelier run-exe
+    #desktop: gui/cardsorter.desktop
+
+plugs:
+  audio-playback:
+  desktop:
+  desktop-legacy:
+  home:
+  network-bind:
+  removable-media:
+  x11:
+  wayland:
+
+  wine-runtime:
+    interface: content
+    target: $SNAP/wine-runtime
+    default-provider: wine-platform-runtime
+  # wine-7-stable: # number must match the number in default-provider
+  wine-6-stable: # number must match the number in default-provider
+    interface: content
+    target: $SNAP/wine-platform
+    # default-provider: wine-platform-7-stable-core20 # must be a valid snap
+    default-provider: wine-platform-6-stable # must be a valid snap
 
 parts:
-  site:
+  installer:
     plugin: dump
-    source: http://casali.canil.ca/CardSorter/CardSorter.zip
+    source: installer/
     override-pull: |
       snapcraftctl pull
-      index=$(find $SNAPCRAFT_PART_SRC -name index.html)
-      ver=$(find $SNAPCRAFT_PART_SRC -name index.html -exec stat --format=%y {} \; | awk '{print $1}')
-      snapcraftctl set-version "$ver"
-      snapcraftctl set-grade "stable"
-    organize:
-      "*": cardsorter/
-  launcher:
+      installer_dirname=$(find $SNAPCRAFT_PART_SRC -maxdepth 1 -name 'CardSorterWPF*' -type d -exec basename {} \;)
+      version=$(echo "installer_dirname" | sed 's|CardSorterWPF||')
+      snapcraftctl set-version "$version"
+      snapcraftctl set-grade "devel"
+    # stage:
+    #   - -CardSorterWPF*.zip
+
+  hooks:
     plugin: dump
-    # source has to be a directory, whether compressed or not
-    source: .
+    source: hooks/
+    organize:
+      "*": sommelier/hooks/
+    stage:
+      - sommelier
+
+  sommelier-core:
+    plugin: make
+    source: https://github.com/snapcrafters/sommelier-core.git
+    source-branch: "1.0"
