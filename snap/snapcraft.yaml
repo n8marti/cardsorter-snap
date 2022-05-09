@@ -1,7 +1,5 @@
 name: cardsorter
 base: core18
-# version: '20210306'
-# grade: stable # must be 'stable' to release into candidate/stable channels
 adopt-info: installer
 summary: Sort word list cards virtually.
 description: |
@@ -68,12 +66,12 @@ plugs:
     interface: content
     target: $SNAP/wine-runtime
     default-provider: wine-platform-runtime
-  # wine-7-stable: # number must match the number in default-provider
-  wine-6-stable: # number must match the number in default-provider
+  # wine-6-stable: # number must match the number in default-provider
+  wine-7-stable: # number must match the number in default-provider
     interface: content
     target: $SNAP/wine-platform
-    # default-provider: wine-platform-7-stable-core20 # must be a valid snap
-    default-provider: wine-platform-6-stable # must be a valid snap
+    # default-provider: wine-platform-6-stable # must be a valid snap
+    default-provider: wine-platform-7-stable-core20 # must be a valid snap
 
 parts:
   installer:
