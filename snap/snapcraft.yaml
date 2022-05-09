@@ -1,5 +1,5 @@
 name: cardsorter
-base: core18
+base: core20
 adopt-info: installer
 summary: Sort word list cards virtually.
 description: |
