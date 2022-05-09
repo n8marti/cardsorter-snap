@@ -100,7 +100,7 @@ parts:
   sommelier-core:
     plugin: make
     source: https://github.com/snapcrafters/sommelier-core.git
-    source-branch: "1.0"
+    source-branch: "master" # "1.0" # need "master" b/c of https://github.com/mmtrt/sommelier-core/commit/096bb179b975df5a89e88b3bac048901ded465fc
     override-prime: |
       snapcraftctl prime
 
