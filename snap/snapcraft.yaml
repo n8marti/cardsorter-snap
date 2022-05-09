@@ -91,13 +91,13 @@ parts:
     stage:
       - installer/
 
-  hooks:
-    plugin: dump
-    source: hooks/
-    organize:
-      "*": sommelier/hooks/
-    stage:
-      - sommelier
+  # hooks:
+  #   plugin: dump
+  #   source: hooks/
+  #   organize:
+  #     "*": sommelier/hooks/
+  #   stage:
+  #     - sommelier
 
   sommelier-core:
     plugin: make
