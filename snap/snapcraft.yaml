@@ -20,8 +20,7 @@ environment:
 
 apps:
   cardsorter:
-    extensions:
-      - gnome-3-28
+    extensions: [gnome-3-28]
     environment:
       INSTALL_EXE: "${SNAP}/installer/setup.exe"
       RUN_EXE: "C:/users/${USER}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/CardSorterWPF/CardSorterWPF.appref-ms"
@@ -51,14 +50,15 @@ apps:
   winetricks:
     extensions: [gnome-3-28]
     command: bin/sommelier winetricks
-    plugs:
-      - network # for downloading
+    # plugs:
+    #   - network # for downloading
 
 plugs:
   audio-playback:
   desktop:
   desktop-legacy:
   home:
+  network:
   network-bind:
   removable-media:
   x11:
@@ -114,3 +114,6 @@ parts:
 
       # Add init-only command.
       sed -r -i 's|(\s+)(init_wine)$|\1\2\n\1if [[ $INIT == '1' ]]; then exit 0; fi|' bin/sommelier
+
+      # Copy cached winetricks in $SNAP_REAL_HOME before installing winetricks.
+      sed -r -i 's@(^install_app\(\).*)@\1\n  cp -r "${SNAP_REAL_HOME}/.cache/winetricks" "${SNAP_USER_COMMON}/.cache" || true@' bin/sommelier
