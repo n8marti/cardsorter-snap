@@ -46,7 +46,7 @@ apps:
     command: bin/sommelier winecfg
 
   winetricks:
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-38]
     command: bin/sommelier winetricks
     # plugs:
     #   - network # for downloading
