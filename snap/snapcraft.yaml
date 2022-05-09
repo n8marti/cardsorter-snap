@@ -18,7 +18,7 @@ environment:
 
 apps:
   cardsorter:
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-38]
     environment:
       INSTALL_EXE: "${SNAP}/installer/setup.exe"
       RUN_EXE: "C:/users/${USER}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/CardSorterWPF/CardSorterWPF.appref-ms"
@@ -26,13 +26,13 @@ apps:
     #desktop: gui/cardsorter.desktop
 
   init:
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-38]
     command: bin/sommelier
     environment:
       INIT: '1'
 
   wine:
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-38]
     command: bin/sommelier
     # plugs:
     #   - home
@@ -42,7 +42,7 @@ apps:
     #   - system-trace
 
   winecfg:
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-38]
     command: bin/sommelier winecfg
 
   winetricks:
