@@ -72,12 +72,12 @@ plugs:
     target: $SNAP/wine-runtime
     default-provider: wine-platform-runtime
   # wine-7-stable: # number must match the number in default-provider
-  # wine-6-stable: # number must match the number in default-provider
-  wine-6-staging: # number must match the number in default-provider
+  # wine-6-staging: # number must match the number in default-provider
+  wine-6-stable: # number must match the number in default-provider
     interface: content
     target: $SNAP/wine-platform
-    # default-provider: wine-platform-6-stable # must be a valid snap
-    default-provider: wine-platform-6-staging # must be a valid snap
+    default-provider: wine-platform-6-stable # must be a valid snap
+    # default-provider: wine-platform-6-staging # must be a valid snap
     # default-provider: wine-platform-7-stable-core20 # must be a valid snap
 
 parts:
@@ -108,7 +108,8 @@ parts:
     plugin: make
     source: https://github.com/snapcrafters/sommelier-core.git
     source-branch: "1.0" # core18
-    # source-branch: "master" # need "master" for core20 b/c of https://github.com/mmtrt/sommelier-core/commit/096bb179b975df5a89e88b3bac048901ded465fc
+    # need "master" for core20 b/c of https://github.com/mmtrt/sommelier-core/commit/096bb179b975df5a89e88b3bac048901ded465fc
+    # source-branch: "master"
     override-prime: |
       snapcraftctl prime
 
