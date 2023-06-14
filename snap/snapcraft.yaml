@@ -68,7 +68,7 @@ plugs:
 parts:
   installer:
     plugin: dump
-    source: installer/
+    source: data/
     # build-packages:
     #   - unzip
     override-build: |
