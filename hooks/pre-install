@@ -1,4 +1,49 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Set version to Windows 10.
+# Set windows to win10.
 "$WINELOADER" winecfg /v win10
+
+# Reset DLL overrides.
+export WINEDLLOVERRIDES=
+
+# # Change DPI.
+# if [[ -z "$WINEDPI" ]]; then
+#     WINEDPI="108"
+# fi
+# hex_dpi=$(printf '0x%.8X\n' "$WINEDPI")
+# "$WINELOADER" reg add "HKLM\\System\\CurrentControlSet\\Hardware Profiles\\Current\\Software\\Fonts" \
+#   /v "LogPixels" /t "REG_DWORD" /d "$hex_dpi" /f
+# "$WINELOADER" reg add "HKCU\\Control Panel\\Desktop" \
+#   /v "LogPixels" /t "REG_DWORD" /d "$hex_dpi" /f
+
+# Unzip ZIP archive to correct location.
+data_dir="$(dirname "$WINEPREFIX")/data"
+if [[ -n "$SNAP_USER_COMMON" ]]; then
+    data_dir="${SNAP}/data"
+fi
+zip_file="$(find -L "$data_dir" -name 'CardSorterWPF*.zip' | sort -nr | head -n1)"
+install_dir="$(dirname "$INSTALL_EXE")"
+if [[ ! -f "$zip_file" ]]; then
+    echo "Error: \"$zip_file\" not found."
+    exit 1
+fi
+mkdir -p "$install_dir"
+unzip "$zip_file" -d "$install_dir"
+
+# Add user folders to Favorites.
+user_dirs=(
+    DESKTOP
+    DOWNLOAD
+    DOCUMENTS
+    MUSIC
+    PICTURES
+    VIDEOS
+)
+wine_faves="${WINEPREFIX}/drive_c/users/${USER}/Favorites"
+for d in "${user_dirs[@]}"; do
+    dpath="$(xdg-user-dir "$d")"
+    dname="$(basename "$dpath")"
+    if [[ -d "$dpath" ]]; then
+      ln -s "$dpath" "${wine_faves}/${dname}"
+    fi
+done

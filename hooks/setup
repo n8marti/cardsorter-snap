@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Set environment variables.
+export WINEPREFIX="$PWD/.wine"
+export WINELOADER=/snap/wine-platform-7-stable-core20/current/opt/wine-stable/bin/wine # wine 7
+
+#export WINEARCH=win32
+export WINEARCH=win64
+
+export WINEDLLOVERRIDES="mscoree=n;mshtml="
+export WINETRICKS=/usr/bin/winetricks
+export TRICKS="corefonts fontsmooth=rgb dotnet48 d3dcompiler_47"
+
+export INSTALL_FLAGS="/s"
+export INSTALL_EXE="${WINEPREFIX}/drive_c/users/${USER}/AppData/Local/Programs/CardSorter/setup.exe"
+# export RUN_EXE="${WINEPREFIX}/drive_c/users/${USER}/AppData/Local/Apps/2.0/120A6AXK.G0V/GDJE2R1B.2ET/card..tion_68c28011eb499005_0001.0000_956a1150e90e536e/CardSorterWPF.exe"
+# export RUN_EXE="C:/users/${USER}/AppData/Local/Programs/CardSorter/CardSorterWPF.application" # leaves orphaned process dfsvc.exe
+export RUN_EXE="${WINEPREFIX}/drive_c/users/${USER}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/CardSorterWPF/CardSorterWPF.appref-ms"

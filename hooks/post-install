@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Wait until Start Menu item appears.
+echo -n "Waiting for Start Menu entry."
+for ((i=1;i<=20;i++)); do
+    if [[ ! -f "$RUN_EXE" ]]; then
+        sleep 1
+        echo -n '.'
+    fi
+done
+echo
+
+pkill CardSorterWPF.e
+pkill dfsvc.exe

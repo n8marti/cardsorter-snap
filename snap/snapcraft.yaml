@@ -13,16 +13,19 @@ license: GPL-3.0+
 contact: https://github.com/n8marti/cardsorter-snap
 
 environment:
-  TRICKS: "dotnet462" # corefonts ddr=gdi fontsmooth=rgb
+  SYSTEM_WGETRC: $SNAP/wine-runtime/etc/wgetrc
+  TRICKS: "corefonts fontsmooth=rgb dotnet48 d3dcompiler_47" # corefonts ddr=gdi fontsmooth=rgb
   WINEDLLOVERRIDES: "mscoree,mshtml=" # Prevent pop-ups about Wine Mono and Wine Gecko
 
 apps:
   cardsorter:
     extensions: [gnome-3-38]
-    environment:
-      INSTALL_EXE: "${SNAP}/installer/setup.exe"
-      RUN_EXE: "C:/users/${USER}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/CardSorterWPF/CardSorterWPF.appref-ms"
     command: bin/sommelier run-exe
+    environment:
+      INSTALL_EXE: "C:/users/${USER}/AppData/Local/Programs/CardSorter/setup.exe"
+      INSTALL_FLAGS: "/s"
+      # Use Start Menu entry b/c the actual EXE path has intervening, randomized folder names
+      RUN_EXE: "C:/users/${USER}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/CardSorterWPF/CardSorterWPF.appref-ms"
 
   init:
     extensions: [gnome-3-38]
@@ -66,17 +69,17 @@ parts:
   installer:
     plugin: dump
     source: installer/
-    build-packages:
-      - unzip
+    # build-packages:
+    #   - unzip
     override-build: |
       installer_zipname=$(find $SNAPCRAFT_PART_BUILD -maxdepth 1 -name 'CardSorterWPF*.zip' -exec basename {} \;)
       version=$(echo "$installer_zipname" | grep -Eo '[0-9]{8}')
       snapcraftctl set-version "$version"
-      snapcraftctl set-grade "devel"
-      unzip ${SNAPCRAFT_PART_BUILD}/CardSorterWPF*.zip -d ${SNAPCRAFT_PART_INSTALL}/installer
+      snapcraftctl set-grade "stable"
+      # unzip ${SNAPCRAFT_PART_BUILD}/CardSorterWPF*.zip -d ${SNAPCRAFT_PART_INSTALL}/data
       # snapcraftctl build
     stage:
-      - installer/
+      - data/
 
   hooks:
     plugin: dump
